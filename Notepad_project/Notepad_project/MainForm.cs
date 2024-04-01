@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -215,15 +215,17 @@ namespace Notepad_project
 
         private void replaceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var replaceForm = new ReplaceForm())
+            var replaceForm = new ReplaceForm();
+            replaceForm.FindNextButtonClicked += ReplaceForm_FindNextButtonClicked;
+            replaceForm.ReplaceButtonClicked += ReplaceForm_ReplaceButtonClicked;
+            replaceForm.ReplaceAllButtonClicked += ReplaceForm_ReplaceAllButtonClicked;
+            replaceForm.MaximizeBox = false;
+            replaceForm.MinimizeBox = false;
+            replaceForm.FormClosed += (s, args) =>
             {
-                replaceForm.FindNextButtonClicked += ReplaceForm_FindNextButtonClicked;
-                replaceForm.ReplaceButtonClicked += ReplaceForm_ReplaceButtonClicked;
-                replaceForm.ReplaceAllButtonClicked += ReplaceForm_ReplaceAllButtonClicked;
-                replaceForm.MaximizeBox = false;
-                replaceForm.MinimizeBox = false;
-                replaceForm.ShowDialog();
-            }
+                this.Focus();
+            };
+            replaceForm.Show(this);
         }
 
         private void ReplaceForm_ReplaceButtonClicked(object sender, EventArgs e)
@@ -540,13 +542,16 @@ namespace Notepad_project
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var findForm = new FindForm())
+            var findForm = new FindForm();
+            findForm.FindNextButtonClicked += FindForm_FindNextButtonClicked;
+            findForm.SearchDirectionChanged += FindForm_SearchDirectionChanged;
+            findForm.MaximizeBox = false;
+            findForm.MinimizeBox = false;
+            findForm.FormClosed += (s, args) =>
             {
-                findForm.FindNextButtonClicked += FindForm_FindNextButtonClicked;
-                findForm.MaximizeBox = false;
-                findForm.MinimizeBox = false;
-                findForm.ShowDialog();
-            }
+                this.Focus();
+            };
+            findForm.Show(this);
         }
 
         private void FindForm_FindNextButtonClicked(object sender, EventArgs e)
@@ -559,6 +564,11 @@ namespace Notepad_project
             searchUp = findForm.SearchUp;
 
             findNextToolStripMenuItem_Click(sender, e);
+        }
+
+        private void FindForm_SearchDirectionChanged(object sender, FindForm.SearchDirectionChangedEventArgs e)
+        {
+            searchUp = e.SearchUpwards;
         }
 
         private void ReplaceForm_FindNextButtonClicked(object sender, EventArgs e)
@@ -581,10 +591,12 @@ namespace Notepad_project
 
             if (searchUp)
             {
-                index = textBox1.Text.LastIndexOf(searchText, startIndex, comparisonType);
+                SendKeys.Send("{LEFT}");
+                index = textBox1.Text.LastIndexOf(searchText, startIndex - 1, comparisonType);
             }
             else
             {
+                SendKeys.Send("{RIGHT}");
                 index = textBox1.Text.IndexOf(searchText, startIndex, comparisonType);
             }
 
@@ -597,10 +609,12 @@ namespace Notepad_project
             {
                 if (searchUp)
                 {
+                    SendKeys.Send("{LEFT}");
                     index = textBox1.Text.LastIndexOf(searchText, comparisonType);
                 }
                 else
                 {
+                    SendKeys.Send("{RIGHT}");
                     index = textBox1.Text.IndexOf(searchText, comparisonType);
                 }
 
@@ -618,61 +632,32 @@ namespace Notepad_project
             {
                 MessageBox.Show("Text not found.", "Find", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            this.Focus();
         }
 
         private void findPreviousToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            searchText = textBox1.Text;
-
-            matchCase = false;
-            wrapAround = false;
-            searchUp = true;
-
             int startIndex = textBox1.SelectionStart;
 
             StringComparison comparisonType = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
             int index;
 
-            if (searchUp)
-            {
-                index = textBox1.Text.LastIndexOf(searchText, startIndex, comparisonType);
-            }
-            else
-            {
-                index = textBox1.Text.IndexOf(searchText, startIndex, comparisonType);
-            }
+            SendKeys.Send("{LEFT}");
 
+            index = textBox1.Text.LastIndexOf(searchText, startIndex, comparisonType);
+            
             if (index != -1)
             {
-                textBox1.Select(index, searchText.Length);
                 textBox1.ScrollToCaret();
-            }
-            else if (wrapAround)
-            {
-                if (searchUp)
-                {
-                    index = textBox1.Text.LastIndexOf(searchText, comparisonType);
-                }
-                else
-                {
-                    index = textBox1.Text.IndexOf(searchText, comparisonType);
-                }
-
-                if (index != -1)
-                {
-                    textBox1.Select(index, searchText.Length);
-                    textBox1.ScrollToCaret();
-                }
-                else
-                {
-                    MessageBox.Show("Text not found.", "Find", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
             }
             else
             {
                 MessageBox.Show("Text not found.", "Find", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            this.Focus();
         }
 
         private void goToToolStripMenuItem_Click(object sender, EventArgs e)
