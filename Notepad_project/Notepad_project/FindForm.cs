@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +25,13 @@ namespace Notepad_project
         public bool SearchUp => searchUpwards;
 
         public event EventHandler FindNextButtonClicked;
+
+        public event EventHandler<SearchDirectionChangedEventArgs> SearchDirectionChanged;
+
+        public class SearchDirectionChangedEventArgs : EventArgs
+        {
+            public bool SearchUpwards { get; set; }
+        }
 
         public FindForm()
         {
@@ -70,6 +77,7 @@ namespace Notepad_project
             if (radioButton1.Checked)
             {
                 searchUpwards = true;
+                SearchDirectionChanged?.Invoke(this, new SearchDirectionChangedEventArgs { SearchUpwards = true });
             }
         }
 
@@ -79,6 +87,7 @@ namespace Notepad_project
             if (radioButton2.Checked)
             {
                 searchUpwards = false;
+                SearchDirectionChanged?.Invoke(this, new SearchDirectionChangedEventArgs { SearchUpwards = false });
             }
         }
 
