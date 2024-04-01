@@ -1,0 +1,13 @@
+C:\Users\David\source\repos\Notepad_project\Notepad_project\bin\Debug\Notepad_project.exe.config
+C:\Users\David\source\repos\Notepad_project\Notepad_project\bin\Debug\Notepad_project.exe
+C:\Users\David\source\repos\Notepad_project\Notepad_project\bin\Debug\Notepad_project.pdb
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.csproj.AssemblyReference.cache
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.Properties.Resources.resources
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.csproj.GenerateResource.cache
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.csproj.CoreCompileInputs.cache
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.exe
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.pdb
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.FindForm.resources
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.ReplaceForm.resources
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.GoToForm.resources
+C:\Users\David\source\repos\Notepad_project\Notepad_project\obj\Debug\Notepad_project.MainForm.resources
