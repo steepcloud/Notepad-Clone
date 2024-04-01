@@ -592,7 +592,7 @@ namespace Notepad_project
             if (searchUp)
             {
                 SendKeys.Send("{LEFT}");
-                index = textBox1.Text.LastIndexOf(searchText, startIndex - 1, comparisonType);
+                index = textBox1.Text.LastIndexOf(searchText, startIndex, comparisonType);
             }
             else
             {
@@ -602,7 +602,6 @@ namespace Notepad_project
 
             if (index != -1)
             {
-                textBox1.Select(index, searchText.Length);
                 textBox1.ScrollToCaret();
             }
             else if (wrapAround)
